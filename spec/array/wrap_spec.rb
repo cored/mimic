@@ -26,10 +26,14 @@ describe Array, '#wrap' do
 
     context 'if argument doesnt respond to_ary' do 
       it 'returns an array with the argument as its single element' do 
-        expect([].wrap(0)).to be_eql [0]
+        obj = Object.new
+        expect([].wrap(obj)).to be_eql [obj]
+      end
+
+      it 'returns an array with the argument as its single element with String' do 
+        expect([].wrap("foo")).to be_eql ["foo"]
       end
     end
-
   end
 
 end
