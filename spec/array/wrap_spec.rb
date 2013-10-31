@@ -9,6 +9,13 @@ class Array
   end
 end
 
+class Proxy
+  def initialize(target) 
+    @target = target
+  end
+
+  def method_missing(*args); @target.send(*args); end
+end
 describe Array, '#wrap' do 
 
   describe 'wraps its argument in an array unless is an already an array' do 
@@ -37,7 +44,15 @@ describe Array, '#wrap' do
       it 'returns an array with the argument as its single element with "foo\nbar"' do 
         expect([].wrap("foo\nbar")).to be_eql ["foo\nbar"]
       end
+
+      context 'proxy object' do 
+        it 'returns an array with the argument as its single element' do 
+          p = Proxy.new(Object.new)
+          expect([].wrap(p)).to be_eql [p]
+        end
+      end
     end
+
   end
 
 end
