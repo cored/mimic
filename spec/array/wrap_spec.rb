@@ -30,8 +30,12 @@ describe Array, '#wrap' do
         expect([].wrap(obj)).to be_eql [obj]
       end
 
-      it 'returns an array with the argument as its single element with String' do 
+      it 'returns an array with the argument as its single element with "foo"' do 
         expect([].wrap("foo")).to be_eql ["foo"]
+      end
+
+      it 'returns an array with the argument as its single element with "foo\nbar"' do 
+        expect([].wrap("foo\nbar")).to be_eql ["foo\nbar"]
       end
     end
   end
